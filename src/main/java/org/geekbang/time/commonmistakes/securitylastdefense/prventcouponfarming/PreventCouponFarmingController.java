@@ -8,6 +8,11 @@ import org.springframework.web.bind.annotation.RestController;
 import java.math.BigDecimal;
 import java.util.stream.IntStream;
 
+
+/**
+ * 优惠券需要限量发送
+ * 否则会出现问题
+ */
 @Slf4j
 @RequestMapping("prventcouponfarming")
 @RestController

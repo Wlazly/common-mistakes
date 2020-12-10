@@ -25,6 +25,10 @@ public class ReflectionIssueApplication {
         getClass().getDeclaredMethod("age", Integer.TYPE).invoke(this, Integer.valueOf("36"));
     }
 
+    /**
+     * 在使用 invoke 方法调用 反射方法的时候，注意类型。Integer.class 和 Integer.type
+     * @throws Exception
+     */
     public void right() throws Exception {
         getClass().getDeclaredMethod("age", Integer.class).invoke(this, Integer.valueOf("36"));
         getClass().getDeclaredMethod("age", Integer.class).invoke(this, 36);

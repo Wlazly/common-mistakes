@@ -1,5 +1,6 @@
 package org.geekbang.time.commonmistakes.concurrenttool.ciavspia;
 
+import com.sun.corba.se.impl.orb.ParserTable;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.HashMap;
@@ -12,8 +13,44 @@ import java.util.concurrent.TimeUnit;
 public class CommonMistakesApplication {
 
     public static void main(String[] args) {
-        test(new HashMap<>());
-        test(new ConcurrentHashMap<>());
+
+        test3(new ConcurrentHashMap<>());
+//        test2(new HashMap<>());
+//        test(new HashMap<>());
+//        test(new ConcurrentHashMap<>());
+    }
+
+    private static void test2(Map<String, String> map) {
+        log.info("class : {}", map.getClass().getName());
+        log.info("putIfAbsent null value :{}", map.putIfAbsent("test", null));
+
+        // 如果值本来不存在 ，那么 返回null
+        log.info("putIfAbsent  value : {}", map.putIfAbsent("test1", "2"));
+        //  如果已经存在的话，那么就返回原来的值,并且不进行设置
+        log.info("putIfAbsent  value : {}", map.putIfAbsent("test1", "3"));
+        log.info("putIfAbsent....{}", map.get("test1"));
+        log.info("putIfAbsent expensive value : {}", map.putIfAbsent("test4", getValue()));
+
+    }
+
+    private static void test3(Map<String, String> map) {
+
+        log.info("class : {}", map.getClass().getName());
+
+        //putIfAbsent 允许设置null值
+        try {
+            //computeIfAbsent 不允许设置null值
+            log.info("map completeIfAbsent null value :{}", map.computeIfAbsent("test", null));
+        } catch (Exception e) {
+        }
+
+//        computeIfAbsent 如果不存在的时候，是不会去获取值的。
+        log.info("completeIfAbsent test1 value :{}", map.computeIfAbsent("test1", k -> "test4"));
+        log.info("completeIfAbsent test1 value :{}", map.computeIfAbsent("test1", k -> "test5"));
+        log.info("completeAbsent get value :{}", map.get("test1"));
+
+        log.info("computeIfAbsent expensive value : {}", map.computeIfAbsent("test4", k -> getValue()));
+
     }
 
     private static void test(Map<String, String> map) {

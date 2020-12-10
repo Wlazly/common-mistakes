@@ -37,6 +37,11 @@ public class SqlInjectController {
         jdbcTemplate.execute("INSERT INTO `userdata` (name,password) VALUES ('test1','haha1'),('test2','haha2')");
     }
 
+    /**
+     *  由于没有使用到参数占位符的方法
+     *  因此可能会出现sql注入的危险问题
+     * @param name
+     */
     @PostMapping("jdbcwrong")
     public void jdbcwrong(@RequestParam("name") String name) {
         //curl -X POST http://localhost:45678/sqlinject/jdbcwrong\?name\=test
@@ -52,6 +57,11 @@ public class SqlInjectController {
         log.info("{}", jdbcTemplate.queryForList("SELECT id,name FROM userdata WHERE name LIKE ?", "%" + name + "%"));
     }
 
+    /**
+     * 没有使用到占位符，有sql注入的危险
+     * @param name
+     * @return
+     */
     @PostMapping("mybatiswrong")
     public List mybatiswrong(@RequestParam("name") String name) {
         //curl -X POST http://localhost:45678/sqlinject/mybatiswrong\?name\=test
@@ -59,6 +69,11 @@ public class SqlInjectController {
         return userDataMapper.findByNameWrong(name);
     }
 
+    /**
+     * 使用到了占位符，没有sql注入的危险
+     * @param name
+     * @return
+     */
     @PostMapping("mybatisright")
     public List mybatisright(@RequestParam("name") String name) {
         //curl -X POST http://localhost:45678/sqlinject/mybatisright?name\=test

@@ -88,6 +88,12 @@ public class IntAndStringEqualController {
                 "int j = 128;\n" +
                 "i == j ? {}", i == j); //true
 
+        Integer m = 128;
+        int n = 128;
+        log.info("\nInteger m = 128;\n " +
+                "int n = 128;\n" +
+                "m == n ? {}", n == m);
+
     }
 
 

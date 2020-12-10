@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.concurrent.ThreadLocalRandom;
+
 @RestController
 @RequestMapping("transactionpropagation")
 @Slf4j
@@ -39,5 +41,10 @@ public class TransactionPropagationController {
     public int right(@RequestParam("name") String name) {
         userService.createUserRight(new UserEntity(name));
         return userService.getUserCount(name);
+    }
+
+    public static void main(String[] args) {
+
+        ThreadLocalRandom threadLocalRandom;
     }
 }

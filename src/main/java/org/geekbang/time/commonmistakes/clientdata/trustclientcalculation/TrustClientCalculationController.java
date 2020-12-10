@@ -17,6 +17,13 @@ public class TrustClientCalculationController {
         this.createOrder(order);
     }
 
+
+    /**
+     * 客户端传送过来的数据都是不可靠的
+     * 需要进行校验
+     * 只需要校验需要校验的参数就可以了。
+     * @param order
+     */
     @PostMapping("/orderRight")
     public void right(@RequestBody Order order) {
         Item item = Db.getItem(order.getItemId());

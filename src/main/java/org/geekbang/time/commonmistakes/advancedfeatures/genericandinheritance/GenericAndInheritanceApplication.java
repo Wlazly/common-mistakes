@@ -1,5 +1,6 @@
 package org.geekbang.time.commonmistakes.advancedfeatures.genericandinheritance;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.Arrays;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -64,6 +65,28 @@ public class GenericAndInheritanceApplication {
             }
         });
         System.out.println(child2.toString());
+    }
+
+    /**
+     * 注意泛型察除 和 泛型的桥接方法
+     */
+    public static void rightBackUp() {
+
+        Child2 child2  = new Child2();
+        Arrays.stream(child2.getClass().getDeclaredMethods())
+                .filter(method -> method.getName().equals("setValue") && !method.isBridge())
+                .findFirst().ifPresent(method -> {
+            try {
+                method.invoke(child2, "test");
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+            } catch (InvocationTargetException e) {
+                e.printStackTrace();
+            }
+
+
+        });
+
     }
 }
 

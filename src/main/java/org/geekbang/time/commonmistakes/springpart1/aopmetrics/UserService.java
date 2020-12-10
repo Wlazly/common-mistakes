@@ -8,7 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @Slf4j
 @Metrics(ignoreException = true)
-public class UserService {
+public class UserService implements  IUserService{
     @Autowired
     private UserRepository userRepository;
 
@@ -21,5 +21,12 @@ public class UserService {
 
     public int getUserCount(String name) {
         return userRepository.findByName(name).size();
+    }
+
+    @NoticeRequired(type = 2)
+    @Override
+    public void count(int count) {
+
+        System.out.println("##############count##################");
     }
 }

@@ -39,6 +39,7 @@ public class GenerateStreamTest {
 
     @Test
     public void primitive() {
+        System.out.println(Integer.parseInt("00"));
         //演示IntStream和DoubleStream
         IntStream.range(1, 3).forEach(System.out::println);
         IntStream.range(0, 3).mapToObj(i -> "x").forEach(System.out::println);

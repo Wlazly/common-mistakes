@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 @Service
 @Slf4j
 @Scope(value = ConfigurableBeanFactory.SCOPE_PROTOTYPE, proxyMode = ScopedProxyMode.TARGET_CLASS)
+//@Scope(value = ConfigurableBeanFactory.SCOPE_PROTOTYPE, proxyMode = ScopedProxyMode.TARGET_CLASS)
 public class SayBye extends SayService {
 
     @Override

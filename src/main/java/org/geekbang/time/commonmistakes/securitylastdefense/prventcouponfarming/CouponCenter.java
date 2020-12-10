@@ -10,6 +10,10 @@ public class CouponCenter {
 
     AtomicInteger totalSent = new AtomicInteger(0);
 
+    /**
+     * 发送优惠券
+     * @param coupon
+     */
     public void sendCoupon(Coupon coupon) {
         if (coupon != null)
             totalSent.incrementAndGet();
@@ -23,6 +27,12 @@ public class CouponCenter {
         return new Coupon(userId, amount);
     }
 
+    /**
+     * 发送一张优惠券
+     * @param userId
+     * @param couponBatch
+     * @return
+     */
     public Coupon generateCouponRight(long userId, CouponBatch couponBatch) {
         if (couponBatch.getRemainCount().decrementAndGet() >= 0) {
             return new Coupon(userId, couponBatch.getAmount());
@@ -32,6 +42,10 @@ public class CouponCenter {
         }
     }
 
+    /**
+     * 产生一批优惠券
+     * @return
+     */
     public CouponBatch generateCouponBatch() {
         CouponBatch couponBatch = new CouponBatch();
         couponBatch.setAmount(new BigDecimal("100"));

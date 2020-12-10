@@ -5,6 +5,13 @@ import lombok.Data;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
+
+/**
+ * 对于一些比较敏感的数据
+ * 那么需要进行脱敏
+ * 加密id
+ * 密文
+ */
 @Data
 @Entity
 public class UserData {

@@ -9,6 +9,10 @@ import org.springframework.web.bind.annotation.RestController;
 import java.math.BigDecimal;
 import java.util.UUID;
 
+
+/**
+ * 防重
+ */
 @Slf4j
 @RequestMapping("preventduplicatepay")
 @RestController

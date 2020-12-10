@@ -15,6 +15,10 @@ import java.util.List;
 @RequestMapping("beansingletonandorder")
 public class BeanSingletonAndOrderController {
 
+    /**
+     * 当使用Autowired来注入List,数组的时候，是把spring 容器中 与 集合中元素类型相同的
+     * bean 来构造一个对应的集合。所以这里不会报空指针异常
+     */
     @Autowired
     List<SayService> sayServiceList;
     @Autowired
@@ -26,6 +30,10 @@ public class BeanSingletonAndOrderController {
         sayServiceList.forEach(SayService::say);
     }
 
+    /**
+     * applicationContext.getBeansOfType(SayService.class).values()
+     * 意思是获取 SayService 这个类的所有的实现类
+     */
     @GetMapping("test2")
     public void test2() {
         log.info("====================");

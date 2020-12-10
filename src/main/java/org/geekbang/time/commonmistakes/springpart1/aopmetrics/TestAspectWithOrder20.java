@@ -10,9 +10,9 @@ import org.aspectj.lang.annotation.Before;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
-@Aspect
-@Component
-@Order(20)
+//@Aspect
+//@Component
+//@Order(20)
 @Slf4j
 public class TestAspectWithOrder20 {
 

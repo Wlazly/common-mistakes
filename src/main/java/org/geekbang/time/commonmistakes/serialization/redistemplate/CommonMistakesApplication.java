@@ -17,6 +17,14 @@ public class CommonMistakesApplication {
         SpringApplication.run(CommonMistakesApplication.class, args);
     }
 
+    /**
+     * 笔记
+     * @Configuratition 类会将这个类声明一个配置类
+     * 在redisTemplate方法上添加 @Bean 注解的话，那么就会往Spring 容器中添加一个名称为 redisTemplate 的Bean。那么该Bean就是方法的返回值。
+     * @param redisConnectionFactory
+     * @param <T>
+     * @return
+     */
     @Bean
     public <T> RedisTemplate<String, T> redisTemplate(RedisConnectionFactory redisConnectionFactory) {
         RedisTemplate<String, T> redisTemplate = new RedisTemplate<>();

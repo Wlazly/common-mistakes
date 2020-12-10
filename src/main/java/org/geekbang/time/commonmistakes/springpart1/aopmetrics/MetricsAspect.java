@@ -24,11 +24,19 @@ import java.util.stream.Stream;
 
 import static java.util.stream.Collectors.toMap;
 
+/**
+ * 切面优先级要最高，否则就会导致在切面中，异常就被捕获了，没有抛出异常，导致失败
+ * before,after,around 增强的顺序问题
+ */
 @Aspect
 @Component
 @Slf4j
 @Order(Ordered.HIGHEST_PRECEDENCE)
 public class MetricsAspect {
+
+    /**
+     * 获取基本类型的默认值
+     */
     private static final Map<Class<?>, Object> DEFAULT_VALUES = Stream
             .of(boolean.class, byte.class, char.class, double.class, float.class, int.class, long.class, short.class)
             .collect(toMap(clazz -> (Class<?>) clazz, clazz -> Array.get(Array.newInstance(clazz, 1), 0)));
@@ -57,6 +65,7 @@ public class MetricsAspect {
         MethodSignature signature = (MethodSignature) pjp.getSignature();
         String name = String.format("【%s】【%s】", signature.getDeclaringType().toString(), signature.toLongString());
 
+        //先从方法上获取注解，方法上获取不到注解，再从类上获取注解
         Metrics metrics = signature.getMethod().getAnnotation(Metrics.class);
         if (metrics == null) {
             metrics = signature.getMethod().getDeclaringClass().getAnnotation(Metrics.class);
@@ -92,7 +101,7 @@ public class MetricsAspect {
             if (metrics.logException())
                 log.error(String.format("【异常日志】调用 %s 出现异常！", name), ex);
 
-            //如果忽略异常那么直接返回默认值
+            //如果忽略异常那么直接返回默认值,没有重新抛出异常
             if (metrics.ignoreException())
                 returnValue = getDefaultValue(signature.getReturnType());
             else
